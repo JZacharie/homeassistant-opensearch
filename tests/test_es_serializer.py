@@ -1,8 +1,8 @@
-""" Tests against the Elasticsearch Serializer """
+""" Tests against the opensearch Serializer """
 
 import json
 
-from custom_components.elasticsearch.es_serializer import get_serializer
+from custom_components.opensearch.es_serializer import get_serializer
 
 from .sample_data import create_sample_state
 

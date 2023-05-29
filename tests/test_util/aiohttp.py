@@ -9,7 +9,7 @@ from urllib.parse import parse_qs
 from aiohttp import ClientSession
 from aiohttp.client_exceptions import ClientError, ClientResponseError
 from aiohttp.streams import StreamReader
-from elasticsearch._async.http_aiohttp import AIOHttpConnection
+from opensearch._async.http_aiohttp import AIOHttpConnection
 from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE
 from multidict import CIMultiDict
 from yarl import URL

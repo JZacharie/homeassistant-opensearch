@@ -1,4 +1,4 @@
-"""Publishes documents to Elasticsearch"""
+"""Publishes documents to opensearch"""
 import asyncio
 import math
 from datetime import datetime
@@ -27,7 +27,7 @@ from .system_info import async_get_system_info
 
 
 class DocumentPublisher:
-    """Publishes documents to Elasticsearch"""
+    """Publishes documents to opensearch"""
 
     def __init__(self, config, gateway, index_manager, hass: HomeAssistantType):
         """Initialize the publisher"""
@@ -176,8 +176,8 @@ class DocumentPublisher:
             self.publish_queue.put([state, event])
 
     async def async_do_publish(self):
-        "Publishes all queued documents to the Elasticsearch cluster"
-        from elasticsearch.exceptions import ElasticsearchException
+        "Publishes all queued documents to the opensearch cluster"
+        from opensearch.exceptions import opensearchException
 
         publish_all_states = self._publish_mode == PUBLISH_MODE_ALL
 
@@ -226,28 +226,28 @@ class DocumentPublisher:
                         self._state_to_bulk_action(state, self._last_publish_time)
                     )
 
-        LOGGER.info("Publishing %i documents to Elasticsearch", len(actions))
+        LOGGER.info("Publishing %i documents to opensearch", len(actions))
 
         try:
             await self.async_bulk_sync_wrapper(actions)
-        except ElasticsearchException as err:
-            LOGGER.exception("Error publishing documents to Elasticsearch: %s", err)
+        except opensearchException as err:
+            LOGGER.exception("Error publishing documents to opensearch: %s", err)
         return
 
     async def async_bulk_sync_wrapper(self, actions):
         """
         Wrapper to publish events.
-        Workaround for elasticsearch_async not supporting bulk operations
+        Workaround for opensearch_async not supporting bulk operations
         """
-        from elasticsearch.exceptions import ElasticsearchException
-        from elasticsearch.helpers import async_bulk
+        from opensearch.exceptions import opensearchException
+        from opensearch.helpers import async_bulk
 
         try:
             bulk_response = await async_bulk(self._gateway.get_client(), actions)
-            LOGGER.debug("Elasticsearch bulk response: %s", str(bulk_response))
+            LOGGER.debug("opensearch bulk response: %s", str(bulk_response))
             LOGGER.info("Publish Succeeded")
-        except ElasticsearchException as err:
-            LOGGER.exception("Error publishing documents to Elasticsearch: %s", err)
+        except opensearchException as err:
+            LOGGER.exception("Error publishing documents to opensearch: %s", err)
 
     def _should_publish_state_change(self, domain: str, entity_id: str):
         """Determines if a state change should be published."""
@@ -315,12 +315,12 @@ class DocumentPublisher:
         for orig_key, orig_value in orig_attributes.items():
             # ES will attempt to expand any attribute keys which contain a ".",
             # so we replace them with an "_" instead.
-            # https://github.com/legrego/homeassistant-elasticsearch/issues/92
+            # https://github.com/legrego/homeassistant-opensearch/issues/92
             key = str.replace(orig_key, ".", "_")
             value = orig_value
 
-            # Skip any attributes with empty keys. Elasticsearch cannot index these.
-            # https://github.com/legrego/homeassistant-elasticsearch/issues/96
+            # Skip any attributes with empty keys. opensearch cannot index these.
+            # https://github.com/legrego/homeassistant-opensearch/issues/96
             if not key:
                 LOGGER.warning(
                     "Not publishing keyless attribute from entity [%s].",
@@ -412,7 +412,7 @@ class DocumentPublisher:
 
 
 def is_valid_number(number):
-    """Determines if the passed number is valid for Elasticsearch"""
+    """Determines if the passed number is valid for opensearch"""
     is_infinity = math.isinf(number)
     is_nan = number != number  # pylint: disable=comparison-with-itself
     return not is_infinity and not is_nan

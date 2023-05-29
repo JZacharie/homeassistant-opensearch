@@ -17,7 +17,7 @@ from .utils import get_merged_config
 
 LOGGER = logging.getLogger(__name__)
 
-DEPENDENCIES = ["elasticsearch"]
+DEPENDENCIES = ["opensearch"]
 
 SCAN_INTERVAL = timedelta(seconds=30)
 
@@ -94,7 +94,7 @@ class EsPublishQueueSensor(EsBaseSensor):
 
     def update(self):
         """Update the state from the sensor."""
-        LOGGER.debug("Updating Elasticsearch queue stats")
+        LOGGER.debug("Updating opensearch queue stats")
         self.current_value = self._publisher.queue_size()
         self.attr = {"last_publish_time": self._publisher.last_publish_time()}
 
@@ -143,7 +143,7 @@ class EsClusterHealthSensor(EsBaseSensor):
 
     async def async_update(self) -> None:
         """Update the state from the sensor."""
-        LOGGER.debug("Updating Elasticsearch cluster health")
+        LOGGER.debug("Updating opensearch cluster health")
         try:
             self._latest_cluster_health = (
                 await self._gateway.get_client().cluster.health()
@@ -154,7 +154,7 @@ class EsClusterHealthSensor(EsBaseSensor):
             self._available = True
         except Exception:
             LOGGER.debug(
-                "An error occurred while updating the Elasticsearch health sensor",
+                "An error occurred while updating the opensearch health sensor",
                 exc_info=True,
             )
             self._available = False

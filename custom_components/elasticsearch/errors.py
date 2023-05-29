@@ -27,4 +27,4 @@ class UntrustedCertificate(ElasticException):
 
 
 class UnsupportedVersion(ElasticException):
-    """Connected to an unsupported version of Elasticsearch."""
+    """Connected to an unsupported version of opensearch."""

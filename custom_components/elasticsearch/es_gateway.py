@@ -1,4 +1,4 @@
-"""Encapsulates Elasticsearch operations"""
+"""Encapsulates opensearch operations"""
 import aiohttp
 from homeassistant.const import (
     CONF_PASSWORD,
@@ -19,12 +19,12 @@ from .errors import (
     UntrustedCertificate,
 )
 from .es_serializer import get_serializer
-from .es_version import ElasticsearchVersion
+from .es_version import opensearchVersion
 from .logger import LOGGER
 
 
-class ElasticsearchGateway:
-    """Encapsulates Elasticsearch operations"""
+class opensearchGateway:
+    """Encapsulates opensearch operations"""
 
     def __init__(self, config):
         """Initialize the gateway"""
@@ -40,11 +40,11 @@ class ElasticsearchGateway:
 
     async def check_connection(self, hass: HomeAssistantType):
         """Performs connection checks for setup"""
-        from elasticsearch import (
+        from opensearch import (
             AuthenticationException,
             AuthorizationException,
             ConnectionError,
-            ElasticsearchException,
+            opensearchException,
             SSLError,
         )
 
@@ -53,7 +53,7 @@ class ElasticsearchGateway:
         try:
             client = self._create_es_client()
 
-            es_version = ElasticsearchVersion(client)
+            es_version = opensearchVersion(client)
             await es_version.async_init()
 
             is_supported_version = es_version.is_supported_version()
@@ -69,7 +69,7 @@ class ElasticsearchGateway:
             raise AuthenticationRequired(err)
         except AuthorizationException as err:
             raise InsufficientPrivileges(err)
-        except ElasticsearchException as err:
+        except opensearchException as err:
             raise ElasticException(err)
         except Exception as err:
             raise ElasticException(err)
@@ -84,15 +84,15 @@ class ElasticsearchGateway:
     async def async_init(self):
         """I/O bound init"""
 
-        LOGGER.debug("Creating Elasticsearch client for %s", self._url)
+        LOGGER.debug("Creating opensearch client for %s", self._url)
         self.client = self._create_es_client()
-        self.es_version = ElasticsearchVersion(self.client)
+        self.es_version = opensearchVersion(self.client)
 
         await self.es_version.async_init()
 
         if not self.es_version.is_supported_version():
             LOGGER.fatal(
-                "UNSUPPORTED VERSION OF ELASTICSEARCH DETECTED: %s.",
+                "UNSUPPORTED VERSION OF opensearch DETECTED: %s.",
                 self.es_version.to_string(),
             )
             raise UnsupportedVersion()
@@ -106,8 +106,8 @@ class ElasticsearchGateway:
         return self.client
 
     def _create_es_client(self):
-        """Constructs an instance of the Elasticsearch client"""
-        from elasticsearch._async.client import AsyncElasticsearch
+        """Constructs an instance of the opensearch client"""
+        from opensearch._async.client import Asyncopensearch
 
         use_basic_auth = self._username is not None and self._password is not None
 
@@ -115,7 +115,7 @@ class ElasticsearchGateway:
 
         if use_basic_auth:
             auth = (self._username, self._password)
-            return AsyncElasticsearch(
+            return Asyncopensearch(
                 [self._url],
                 http_auth=auth,
                 serializer=serializer,
@@ -125,7 +125,7 @@ class ElasticsearchGateway:
                 timeout=self._timeout,
             )
 
-        return AsyncElasticsearch(
+        return Asyncopensearch(
             [self._url],
             serializer=serializer,
             verify_certs=self._verify_certs,

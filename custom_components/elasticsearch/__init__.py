@@ -1,5 +1,5 @@
 """
-Support for sending event data to an Elasticsearch cluster
+Support for sending event data to an opensearch cluster
 """
 
 from copy import deepcopy
@@ -21,7 +21,7 @@ from homeassistant.const import (
 from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryNotReady
 from homeassistant.helpers.typing import HomeAssistantType
 
-from custom_components.elasticsearch.utils import get_merged_config
+from custom_components.opensearch.utils import get_merged_config
 
 from .const import (
     CONF_EXCLUDED_DOMAINS,
@@ -94,7 +94,7 @@ CONFIG_SCHEMA = vol.Schema(
 
 
 async def async_setup(hass: HomeAssistantType, config):
-    """Set up Elasticsearch integration via legacy yml-based setup."""
+    """Set up opensearch integration via legacy yml-based setup."""
     if DOMAIN not in config:
         return True
 
@@ -176,7 +176,7 @@ async def _async_init_integration(hass: HomeAssistantType, config_entry: ConfigE
         integration = ElasticIntegration(hass, config_entry)
         await integration.async_init()
     except UnsupportedVersion as err:
-        LOGGER.error("Unsupported Elasticsearch version detected")
+        LOGGER.error("Unsupported opensearch version detected")
         raise ConfigEntryNotReady from err
     except AuthenticationRequired as err:
         LOGGER.error("Missing or invalid credentials")

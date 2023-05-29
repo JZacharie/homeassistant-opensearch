@@ -46,7 +46,7 @@ from .errors import (
     UnsupportedVersion,
     UntrustedCertificate,
 )
-from .es_gateway import ElasticsearchGateway
+from .es_gateway import opensearchGateway
 from .logger import LOGGER
 
 DEFAULT_URL = "http://localhost:9200"
@@ -150,10 +150,10 @@ class ElasticFlowHandler(config_entries.ConfigFlow, domain=ELASTIC_DOMAIN):
 
         self.config = self.build_full_config(user_input)
 
-        return await self._async_elasticsearch_login()
+        return await self._async_opensearch_login()
 
     async def async_step_tls(self, user_input=None):
-        """Handle establishing a trusted connection to Elasticsearch."""
+        """Handle establishing a trusted connection to opensearch."""
 
         if user_input is None:
             return self.async_show_form(
@@ -164,7 +164,7 @@ class ElasticFlowHandler(config_entries.ConfigFlow, domain=ELASTIC_DOMAIN):
         if len(user_input[CONF_SSL_CA_PATH]):
             self.config[CONF_SSL_CA_PATH] = user_input[CONF_SSL_CA_PATH]
 
-        return await self._async_elasticsearch_login()
+        return await self._async_opensearch_login()
 
     async def async_step_import(self, import_config):
         """Import a config entry from configuration.yaml."""
@@ -189,12 +189,12 @@ class ElasticFlowHandler(config_entries.ConfigFlow, domain=ELASTIC_DOMAIN):
 
         return await self.async_step_user(user_input=import_config)
 
-    async def _async_elasticsearch_login(self):
-        """Handle connection & authentication to Elasticsearch"""
+    async def _async_opensearch_login(self):
+        """Handle connection & authentication to opensearch"""
         errors = {}
 
         try:
-            gateway = ElasticsearchGateway(self.config)
+            gateway = opensearchGateway(self.config)
             await gateway.check_connection(self.hass)
         except UntrustedCertificate:
             errors["base"] = "untrusted_connection"
@@ -211,7 +211,7 @@ class ElasticFlowHandler(config_entries.ConfigFlow, domain=ELASTIC_DOMAIN):
             errors["base"] = "unsupported_version"
         except Exception as ex:  # pylint: disable=broad-except
             LOGGER.error(
-                "Unknown error connecting with Elasticsearch cluster. %s",
+                "Unknown error connecting with opensearch cluster. %s",
                 ex,
             )
             errors["base"] = "cannot_connect"

@@ -1,6 +1,6 @@
 """ constants """
 
-DOMAIN = "elasticsearch"
+DOMAIN = "opensearch"
 
 CONF_PUBLISH_ENABLED = "publish_enabled"
 CONF_HEALTH_SENSOR_ENABLED = "health_sensor_enabled"

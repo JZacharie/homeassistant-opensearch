@@ -55,9 +55,9 @@ class IndexManager:
 
     async def _create_index_template(self):
         """
-        Initializes the Elasticsearch cluster with an index template, initial index, and alias.
+        Initializes the opensearch cluster with an index template, initial index, and alias.
         """
-        from elasticsearch.exceptions import ElasticsearchException
+        from opensearch.exceptions import opensearchException
 
         client = self._gateway.get_client()
 
@@ -91,7 +91,7 @@ class IndexManager:
                 await client.indices.put_template(
                     name=INDEX_TEMPLATE_NAME, body=index_template
                 )
-            except ElasticsearchException as err:
+            except opensearchException as err:
                 LOGGER.exception("Error creating index template: %s", err)
 
         if not await client.indices.exists_alias(name=self.index_alias):
@@ -101,7 +101,7 @@ class IndexManager:
                     index=self._index_format + "-000001",
                     body={"aliases": {self.index_alias: {"is_write_index": True}}},
                 )
-            except ElasticsearchException as err:
+            except opensearchException as err:
                 LOGGER.exception("Error creating initial index/alias: %s", err)
         elif self._using_ilm:
             LOGGER.debug("Ensuring ILM Policy is attached to existing index")
@@ -114,14 +114,14 @@ class IndexManager:
                         "index.lifecycle.rollover_alias": self.index_alias,
                     },
                 )
-            except ElasticsearchException as err:
+            except opensearchException as err:
                 LOGGER.exception("Error updating index ILM settings: %s", err)
 
     async def _create_ilm_policy(self, config):
         """
         Creates the index lifecycle management policy.
         """
-        from elasticsearch.exceptions import TransportError
+        from opensearch.exceptions import TransportError
 
         client = self._gateway.get_client()
 

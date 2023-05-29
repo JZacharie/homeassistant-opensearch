@@ -1,5 +1,5 @@
 """
-Support for sending event data to an Elasticsearch cluster
+Support for sending event data to an opensearch cluster
 """
 
 import asyncio
@@ -8,7 +8,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.typing import HomeAssistantType
 
 from .es_doc_publisher import DocumentPublisher
-from .es_gateway import ElasticsearchGateway
+from .es_gateway import opensearchGateway
 from .es_index_manager import IndexManager
 from .utils import get_merged_config
 
@@ -19,7 +19,7 @@ class ElasticIntegration:
     def __init__(self, hass: HomeAssistantType, config_entry: ConfigEntry):
         conf = get_merged_config(config_entry)
         self.hass = hass
-        self.gateway = ElasticsearchGateway(conf)
+        self.gateway = opensearchGateway(conf)
         self.index_manager = IndexManager(hass, conf, self.gateway)
         self.publisher = DocumentPublisher(conf, self.gateway, self.index_manager, hass)
         self.config_entry = config_entry

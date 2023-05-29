@@ -10,7 +10,7 @@
             "invalid_auth": "Invalid username or password.",
             "insufficient_privileges": "Insufficient privileges for specified user.",
             "missing_credentials": "This cluster requires authentication. Please provide a username and password.",
-            "untrusted_connection": "Elasticsearch's server certificate could not be verified. Either disable TLS verification, or specify a custom CA path below.",
+            "untrusted_connection": "opensearch's server certificate could not be verified. Either disable TLS verification, or specify a custom CA path below.",
             "unsupported_version": "Unsupported version of Elastcsearch detected. The minimum supported version is 7.11.0."
         },
         "step": {
@@ -21,7 +21,7 @@
                     "username": "Username",
                     "timeout": "Connection timeout in seconds"
                 },
-                "title": "Fill in your Elasticsearch login information"
+                "title": "Fill in your opensearch login information"
             },
             "tls": {
                 "data": {
@@ -40,7 +40,7 @@
                 "title": "Elastic",
                 "description": "Configure publish options",
                 "data": {
-                    "publish_enabled": "Publish events to Elasticsearch",
+                    "publish_enabled": "Publish events to opensearch",
                     "publish_frequency": "How frequently events are published, in seconds",
                     "publish_mode": "Choose which entity states to publish",
                     "excluded_domains": "Domains to exclude from publishing. Defaults to none.",
@@ -48,7 +48,7 @@
                     "included_domains": "Domains to publish. Defaults to all domains.",
                     "included_entities": "Entities to publish. Defaults to all entities.",
                     "index_format": "The index name prefix to publish events to",
-                    "alias": "The index alias used for writing events to Elasticsearch"
+                    "alias": "The index alias used for writing events to opensearch"
                 }
             },
             "ilm_options": {

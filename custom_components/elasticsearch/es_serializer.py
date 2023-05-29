@@ -3,7 +3,7 @@
 
 def get_serializer():
     """Gets the custom JSON serializer"""
-    from elasticsearch.serializer import JSONSerializer
+    from opensearch.serializer import JSONSerializer
 
     class SetEncoder(JSONSerializer):
         """JSONSerializer which serializes sets to lists"""

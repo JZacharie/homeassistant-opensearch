@@ -1,26 +1,26 @@
 ## Features
 
-- Effeciently publishes Home-Assistant events to Elasticsearch using the Bulk API
-- Automatically maintains Indexes and Index Templates using Index Lifecycle Management ("ILM")
-- Supports [X-Pack Security](https://www.elastic.co/products/x-pack/security) via optional username and password
-- Tracks the Elasticsearch cluster health in the `sensor.es_cluster_health` sensor
+- Effeciently publishes Home-Assistant events to opensearch using the Bulk API
+<!-- - Automatically maintains Indexes and Index Templates using Index Lifecycle Management ("ILM") -->
+<!-- - Supports [X-Pack Security](https://www.elastic.co/products/x-pack/security) via optional username and password -->
+- Tracks the opensearch cluster health in the `sensor.es_cluster_health` sensor
 - Exclude specific entities or groups from publishing
 
 ## Compatibility
 
-- Elasticsearch 8.0+, 7.11+ (Self or [Cloud](https://www.elastic.co/cloud) hosted). [Version `0.4.0`](https://github.com/legrego/homeassistant-elasticsearch/releases/tag/v0.4.0) includes support for older versions of Elasticsearch.
+- opensearch 2.6.+ (Self or [Cloud](https://www.elastic.co/cloud) hosted). [Version `0.4.0`](https://github.com/legrego/homeassistant-opensearch/releases/tag/v0.4.0) includes support for older versions of opensearch.
 - [Elastic Common Schema version 1.0.0](https://github.com/elastic/ecs/releases/tag/v1.0.0)
 - [Home Assistant Community Store](https://github.com/custom-components/hacs)
 - Home Assistant 2022.4+
 
 ## Getting Started
 
-The Elasticsearch component requires, well, [Elasticsearch](https://www.elastic.co/products/elasticsearch)!
-This component will not host or configure Elasticsearch for you, but there are many ways to run your own cluster.
-Elasticsearch is open source and free to use: just bring your own hardware!
+The opensearch component requires, well, [opensearch](https://www.elastic.co/products/opensearch)!
+This component will not host or configure opensearch for you, but there are many ways to run your own cluster.
+opensearch is open source and free to use: just bring your own hardware!
 Elastic has a [great setup guide](https://www.elastic.co/start) if you need help getting your first cluster up and running.
 
-If you don't want to maintain your own cluster, then give the [Elastic Cloud](https://www.elastic.co/cloud) a try! There is a free trial available to get you started.
+<!-- If you don't want to maintain your own cluster, then give the [Elastic Cloud](https://www.elastic.co/cloud) a try! There is a free trial available to get you started. -->
 
 ## Setup (preferred method)
 
@@ -28,7 +28,7 @@ This component supports interactive configuration via Home Assistant's integrati
 This will be the only supported configuration method in the future.
 
 1. Restart Home-assistant once you've completed the installation instrictions above.
-2. From the `Integrations` configuration menu, add a new `Elasticsearch` integration. ![img](assets/add-integration.png)
+2. From the `Integrations` configuration menu, add a new `opensearch` integration. ![img](assets/add-integration.png)
 3. Provide connection information and optionally credentials to begin setup. ![img](assets/configure-integration.png)
 4. Once the integration is setup, you may tweak all settings via the "Options" button on the integrations page.
    ![img](assets/publish-options.png)
@@ -47,7 +47,7 @@ This component supports yaml-based configuration, but this is deprecated, and wi
 ```
 .homeassistant/
 |-- custom_components/
-|   |-- elasticsearch/
+|   |-- opensearch/
 |       |-- __init__.py
 |       |-- const.py
 |       |-- es_doc_publisher.py
@@ -57,4 +57,4 @@ This component supports yaml-based configuration, but this is deprecated, and wi
 
 ```
 
-See https://github.com/legrego/homeassistant-elasticsearch for a complete list of configuration options.
+See https://github.com/legrego/homeassistant-opensearch for a complete list of configuration options.
