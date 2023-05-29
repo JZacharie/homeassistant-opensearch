@@ -8,7 +8,7 @@
 
 ## Compatibility
 
-- opensearch 2.6.+ (Self or [Cloud](https://www.elastic.co/cloud) hosted). [Version `0.4.0`](https://github.com/legrego/homeassistant-opensearch/releases/tag/v0.4.0) includes support for older versions of opensearch.
+- opensearch 2.6.+ (Self or [Cloud](https://www.elastic.co/cloud) hosted). [Version `0.4.0`](https://github.com/JZacharie/homeassistant-opensearch/releases/tag/v0.4.0) includes support for older versions of opensearch.
 - [Elastic Common Schema version 1.0.0](https://github.com/elastic/ecs/releases/tag/v1.0.0)
 - [Home Assistant Community Store](https://github.com/custom-components/hacs)
 - Home Assistant 2022.4+
@@ -57,4 +57,4 @@ This component supports yaml-based configuration, but this is deprecated, and wi
 
 ```
 
-See https://github.com/legrego/homeassistant-opensearch for a complete list of configuration options.
+See https://github.com/JZacharie/homeassistant-opensearch for a complete list of configuration options.

@@ -315,12 +315,12 @@ class DocumentPublisher:
         for orig_key, orig_value in orig_attributes.items():
             # ES will attempt to expand any attribute keys which contain a ".",
             # so we replace them with an "_" instead.
-            # https://github.com/legrego/homeassistant-opensearch/issues/92
+            # https://github.com/JZacharie/homeassistant-opensearch/issues/92
             key = str.replace(orig_key, ".", "_")
             value = orig_value
 
             # Skip any attributes with empty keys. opensearch cannot index these.
-            # https://github.com/legrego/homeassistant-opensearch/issues/96
+            # https://github.com/JZacharie/homeassistant-opensearch/issues/96
             if not key:
                 LOGGER.warning(
                     "Not publishing keyless attribute from entity [%s].",

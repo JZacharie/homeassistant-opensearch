@@ -1,5 +1,5 @@
 opensearch Component for Home-Assistant
-![build](https://github.com/legrego/homeassistant-opensearch/workflows/build/badge.svg)
+![build](https://github.com/JZacharie/homeassistant-opensearch/workflows/build/badge.svg)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/hacs/integration)
 =====
 
@@ -15,7 +15,7 @@ Publish HASS events to your [opensearch](https://elastic.co) cluster!
 
 ## Compatibility
 
-- opensearch 8.0+, 7.11+ (Self or [Cloud](https://www.elastic.co/cloud) hosted). [Version `0.4.0`](https://github.com/legrego/homeassistant-opensearch/releases/tag/v0.4.0) includes support for older versions of opensearch.
+- opensearch 8.0+, 7.11+ (Self or [Cloud](https://www.elastic.co/cloud) hosted). [Version `0.4.0`](https://github.com/JZacharie/homeassistant-opensearch/releases/tag/v0.4.0) includes support for older versions of opensearch.
 - [Elastic Common Schema version 1.0.0](https://github.com/elastic/ecs/releases/tag/v1.0.0)
 - [Home Assistant Community Store](https://github.com/custom-components/hacs)
 - Home Assistant 2022.4+
@@ -192,7 +192,7 @@ This means that home-assistant was not able to download the required `opensearch
 
 **Solution**: Restart home assistant
 
-More info: https://github.com/legrego/homeassistant-opensearch/issues/23
+More info: https://github.com/JZacharie/homeassistant-opensearch/issues/23
 
 ### Certificate verify failed
 
@@ -202,9 +202,9 @@ When connecting to a TLS protected cluster, you might receive the following erro
 ssl.SSLError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:720)
 ```
 
-This generally means that the certificate is not trusted by the home-assistant runtime. Please ensure your certificates are setup correctly. To skip certificate verification, see setup instructions [here](https://github.com/legrego/homeassistant-opensearch/pull/36)
+This generally means that the certificate is not trusted by the home-assistant runtime. Please ensure your certificates are setup correctly. To skip certificate verification, see setup instructions [here](https://github.com/JZacharie/homeassistant-opensearch/pull/36)
 
-More info: https://github.com/legrego/homeassistant-opensearch/issues/33
+More info: https://github.com/JZacharie/homeassistant-opensearch/issues/33
 
 ### `index_format` and `index_alias` not working
 
@@ -214,7 +214,7 @@ If you make any changes to the `index_format` or `index_alias` configuration set
 DELETE _template/active-hass-index-v2
 ```
 
-More info: https://github.com/legrego/homeassistant-opensearch/issues/48
+More info: https://github.com/JZacharie/homeassistant-opensearch/issues/48
 
 ## Support
 

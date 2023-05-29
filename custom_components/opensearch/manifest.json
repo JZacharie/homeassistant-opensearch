@@ -1,0 +1,16 @@
+{
+  "domain": "opensearch",
+  "name": "opensearch",
+  "codeowners": [
+    "@JZacharie"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/JZacharie/homeassistant-opensearch",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/JZacharie/homeassistant-opensearch/issues",
+  "requirements": [
+    "opensearch==2.6.0"
+  ],
+  "version": "0.4.0"
+}
