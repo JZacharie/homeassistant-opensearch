@@ -44,7 +44,7 @@ class opensearchGateway:
             AuthenticationException,
             AuthorizationException,
             ConnectionError,
-            opensearchException,
+            ElasticsearchException,
             SSLError,
         )
 
@@ -69,7 +69,7 @@ class opensearchGateway:
             raise AuthenticationRequired(err)
         except AuthorizationException as err:
             raise InsufficientPrivileges(err)
-        except opensearchException as err:
+        except ElasticsearchException as err:
             raise ElasticException(err)
         except Exception as err:
             raise ElasticException(err)
