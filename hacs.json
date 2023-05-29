@@ -1,0 +1,5 @@
+{
+  "name": "Elasticsearch integration",
+  "render_readme": true,
+  "homeassistant": "2022.4"
+}
