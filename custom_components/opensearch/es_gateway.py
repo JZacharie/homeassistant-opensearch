@@ -40,7 +40,7 @@ class opensearchGateway:
 
     async def check_connection(self, hass: HomeAssistantType):
         """Performs connection checks for setup"""
-        from opensearch import (
+        from elasticsearch import (
             AuthenticationException,
             AuthorizationException,
             ConnectionError,
