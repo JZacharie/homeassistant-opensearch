@@ -3,31 +3,28 @@ opensearch Component for Home-Assistant
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/hacs/integration)
 =====
 
-Publish HASS events to your [opensearch](https://elastic.co) cluster!
+Publish HASS events to your [opensearch](https://opensearch.org) cluster!
 
 ## Features
 
 - Efficiently publishes Home-Assistant events to opensearch using the Bulk API
-- Automatically maintains Indexes and Index Templates using Index Lifecycle Management ("ILM")
-- Supports [X-Pack Security](https://www.elastic.co/products/x-pack/security) via optional username and password
+<!-- - Automatically maintains Indexes and Index Templates using Index Lifecycle Management ("ILM") -->
+<!-- - Supports [X-Pack Security](https://www.elastic.co/products/x-pack/security) via optional username and password -->
 - Tracks the opensearch cluster health in the `sensor.es_cluster_health` sensor
 - Exclude specific entities or groups from publishing
 
 ## Compatibility
 
-- opensearch 8.0+, 7.11+ (Self or [Cloud](https://www.elastic.co/cloud) hosted). [Version `0.4.0`](https://github.com/JZacharie/homeassistant-opensearch/releases/tag/v0.4.0) includes support for older versions of opensearch.
-- [Elastic Common Schema version 1.0.0](https://github.com/elastic/ecs/releases/tag/v1.0.0)
+- opensearch 2.7+ [Version `0.4.0`](https://github.com/JZacharie/homeassistant-opensearch/releases/tag/v0.4.0) includes support for older versions of opensearch.
+<!-- - [Elastic Common Schema version 1.0.0](https://github.com/elastic/ecs/releases/tag/v1.0.0) -->
 - [Home Assistant Community Store](https://github.com/custom-components/hacs)
 - Home Assistant 2022.4+
 
 ## Getting Started
 
-The opensearch component requires, well, [opensearch](https://www.elastic.co/products/opensearch)!
+The opensearch component requires, well, [opensearch](https://opensearch.org)!
 This component will not host or configure opensearch for you, but there are many ways to run your own cluster.
 opensearch is open source and free to use: just bring your own hardware!
-Elastic has a [great setup guide](https://www.elastic.co/start) if you need help getting your first cluster up and running.
-
-If you don't want to maintain your own cluster, then give the [Elastic Cloud](https://www.elastic.co/cloud) a try! There is a free trial available to get you started.
 
 ## Installation
 
@@ -88,8 +85,8 @@ All variables are optional unless marked required.
 #### Basic Configuration
 
 - **url** (_Required_): The URL of your opensearch cluster
-- **username**: If your cluster is protected with Basic Authentication via [X-Pack Security](https://www.elastic.co/products/x-pack/security), then provide a username here
-- **password**: If your cluster is protected with Basic Authentication via [X-Pack Security](https://www.elastic.co/products/x-pack/security), then provide a password here
+- **username** (_Required_): provide a username here
+- **password**(_Required_):  provide a password here
 - **timeout** (_default:_ `30`): opensearch connection timeout (in seconds) for all outbound requests.
 - **exclude**:
   - **domains**: Specify an optional array of domains to exclude from publishing
@@ -173,49 +170,3 @@ POST /_security/role/hass_writer
   ]
 }
 ```
-
-## Troubleshooting
-
-Solutions to common questions and errors:
-
-### Error loading opensearch
-
-After installing this component, you may see an error similar to this on startup:
-
-> No module named 'opensearch'
-
-```
-ERROR (MainThread) [homeassistant.setup] Error during setup of component elastic Traceback (most recent call last): File "/usr/src/app/homeassistant/setup.py", line 145, in _async_setup_component hass, processed_config) File "/usr/local/lib/python3.6/asyncio/coroutines.py", line 212, in coro res = func(*args, **kw) File "/config/custom_components/elastic/__init__.py", line 62, in async_setup gateway = opensearchGateway(hass, conf) File "/config/custom_components/elastic/__init__.py", line 126, in __init__ self.client = self._create_es_client() File "/config/custom_components/elastic.py", line 134, in _create_es_client import opensearch ModuleNotFoundError: No module named 'opensearch'
-```
-
-This means that home-assistant was not able to download the required `opensearch` module for this component to function.
-
-**Solution**: Restart home assistant
-
-More info: https://github.com/JZacharie/homeassistant-opensearch/issues/23
-
-### Certificate verify failed
-
-When connecting to a TLS protected cluster, you might receive the following error:
-
-```
-ssl.SSLError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:720)
-```
-
-This generally means that the certificate is not trusted by the home-assistant runtime. Please ensure your certificates are setup correctly. To skip certificate verification, see setup instructions [here](https://github.com/JZacharie/homeassistant-opensearch/pull/36)
-
-More info: https://github.com/JZacharie/homeassistant-opensearch/issues/33
-
-### `index_format` and `index_alias` not working
-
-If you make any changes to the `index_format` or `index_alias` configuration settings, it's necessary to delete the `active-hass-index-v2` index template before starting home-assistant:
-
-```
-DELETE _template/active-hass-index-v2
-```
-
-More info: https://github.com/JZacharie/homeassistant-opensearch/issues/48
-
-## Support
-
-This project is not endorsed or supported by either Elastic or Home-Assistant - please open a GitHub issue for any questions, bugs, or feature requests.

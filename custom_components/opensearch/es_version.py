@@ -20,7 +20,7 @@ class opensearchVersion:
 
     def is_supported_version(self):
         """Determines if this version of ES is supported by this component"""
-        return self.major == 8 or (self.major == 7 and self.minor >= 11)
+        return self.major == 2 and self.minor >= 6
 
     def to_string(self):
         """Returns a string representation of the current ES version"""
